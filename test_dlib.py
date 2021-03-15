@@ -28,5 +28,5 @@ def parse_directory(dir):
   print("Processed {} images. {} seconds, {} images/sec".format(count, finish-start, count / (finish - start)))
   return np.array(encodings)
 
-data = './face_images/'
+data = './images/'
 parse_directory(data)
