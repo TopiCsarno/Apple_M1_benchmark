@@ -22,5 +22,3 @@ history = model.fit(
     epochs=10, 
     validation_data=(test_images, test_labels)
 )
-
-2
