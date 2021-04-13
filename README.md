@@ -110,7 +110,7 @@ A Numpy teszt csak a CPU teljesítményét méri matematikai műveleteken. Enné
 
 ![Numpy teszt eredmény](./images/figures/result_numpy.png)
 
-A TensorFlow kiadott egy Mac M1-es architektúrára optimalizált verziót ([link](https://github.com/apple/tensorflow_macos)). A keretrendszer kissé bonyolultan telepíthető Miniconda segítségével, de miután sikerült felrakni rendkívül egyszerű a használata. Egy felmerülő problémám volt nálam, hogy jelenleg csak a TensorFlow 2.4-es verziója támogatott, tehát régi 1.x projektek visszamenőleg nincsenek támogatva.
+A TensorFlow kiadott egy Mac M1-es architektúrára optimalizált verziót ([link](https://github.com/apple/tensorflow_macos)). Ez a verzió Apple [ML compute](https://machinelearning.apple.com/updates/ml-compute-training-on-mac) keretrendszerére épít, így ki tudja használni az M1-es chip optimalizációit. A TensorFlow_macos verziója jelenleg béta verzióban van és egyáltalán nem triviális a telepítése, de megoldható Miniconda segítségével. Miután sikerült felrakni, onnantól egyszerű a használata. Egy felmerülő problémám volt nálam, hogy jelenleg csak a TensorFlow 2.4-es verziója támogatott, tehát régi 1.x projektek visszamenőleg nincsenek támogatva.
 
 Az MNIST adathalmazra egy teljesen kapcsolt neurális hálót, míg a CIFAR10 adathalmazra egy konvolúciós neurális hálót tanítunk. A futtatási eredmények az alábbi ábrán láthatóak.
 
@@ -118,7 +118,7 @@ Az MNIST adathalmazra egy teljesen kapcsolt neurális hálót, míg a CIFAR10 ad
 
 ## Negatívak
 
-Sajnos még csak néhány nagyobb könyvtár támogatja az M1-es ARM architektúrát. A nem támogatott csomagok a Rosetta 2 kompatibilitási rétegen keresztül futnak, amely lehetővé teszi az intel-alapú programok futtatását. Ez jelentősen ront a teljesítményen. A TensorFlow melletti másik nagy keretrendszer: a Pytorch még nem támogatja az M1-et.
+Sajnos még csak néhány nagyobb könyvtár támogatja az M1-es ARM architektúrát. A nem támogatott csomagok a Rosetta 2 kompatibilitási rétegen keresztül futnak, amely lehetővé teszi az intel-alapú programok futtatását. Ezek a programok nem tudják kihasználni az M1-es chip optimalizációit, ezért jelentősen rosszabb a teljesítmény. A TensorFlow melletti másik nagy keretrendszer: a Pytorch még nem támogatja az M1-et.
 
 Az arcfelismerés teszt abból áll, hogy 400 képen megkeressük a képen látható emberek arcát, és az alapján arclenyomat vektorokat generálunk. Bár az OpenCV támogatja az ARM architektúrát, a dlib csomag jelenleg csak Nvidia grafikus kártyát támogat, így az arckereső teszt lefuttatása jelentősen lassabb volt a Mac minin.
 
@@ -127,8 +127,9 @@ Az arcfelismerés teszt abból áll, hogy 400 képen megkeressük a képen láth
 A testtartás elemző könyvtárak közül az [OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose) csak NVIDIA GPU-t támogat. A PoseNet könyvtárnál választhatunk Pytorch és [Tensorflow implementálás](https://github.com/rwightman/posenet-python) közül, így reméltem, hogy a Tensorflow verzióval jó eredmény érhető el, de mivel az implementáció a TensorFlow v1.12 verzióján készült, még nem támogatja az ARM architektúrát.
 
 A pózdetektálás teszt bemeneti képeken futtatja le a testtartás elemző modellt. Az eredmény az 1 másodperc alatt feldolgozott képek (framek) számát adja.
+
 ![Dlib eredmény](./images/figures/posenet.png)
 
 # Összegzés
 
-Jelenleg viszonylag kevés az olyan machine learning könyvtár, ami támogatná az új Apple Silicon M1 chipet. Legjobb eredményeket TensorFlow keretrendszer használatával érhetünk el. Idővel várhatóan javulni fog a helyzet, de jelenleg hatékonyabb NVIDIA GPU vagy Cloud computing szolgáltatás használata.
+Jelenleg viszonylag kevés az olyan machine learning könyvtár, ami támogatná az új Apple Silicon M1 chipet. Legjobb eredményeket TensorFlow keretrendszer használatával érhetünk el, de TensorFlow M1-re fejlesztett verziója jelenleg bétában van és nehézkes az installálása. Még abban az esetben is, ha működik az M1-es chip optimalizációja, nagy méretű modellek esetén memória limitációkba ütközhetünk. Idővel várhatóan javulni fog a helyzet, de jelenleg hatékonyabb NVIDIA GPU vagy Cloud computing szolgáltatás használata.
