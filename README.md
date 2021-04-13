@@ -2,9 +2,9 @@
 
 Az új Apple Silicon M1 chip egyik újítása, hogy a chip tartalmaz egy Neural Engine nevű egységet, ami kifejezetten gépi tanulási feladatok gyorsítására készült ([souce](https://www.apple.com/mac/m1/)). 
 
-Felmerült a kérdés, hogy az új architekúra hogyan teljesít a valóságban gépi tanulási feladtokon. Van-e olyan jó teljesítménye mint egy dedikált NVIDIA GPU-nak? Mik azok a keretrendszerek amik már támogatják az M1-es architektúrát, és mi az ami még nem?
+Felmerült a kérdés, hogy az új architektúra hogyan teljesít a valóságban gépi tanulási feladatokon. Van-e olyan jó teljesítménye, mint egy dedikált NVIDIA GPU-nak? Mik azok a keretrendszerek, amik már támogatják az M1-es architektúrát, és mi az ami még nem?
 
-Ebben a repo-ban olyan egyszerű teszt scriptek találhatóak amivel  fel lehet mérni egy gép teljesítményét gyakran (elsősorban gépi látás területén) előforduló ML feladatoknál. 
+Ebben a repo-ban olyan egyszerű teszt scriptek találhatóak, amivel  fel lehet mérni egy gép teljesítményét gyakran (elsősorban gépi látás területén) előforduló ML feladatoknál. 
 
 Tesztelt csomagok:
 
@@ -91,16 +91,16 @@ Fontos, hogy session-nél állítsuk be a GPU használatát. Google Colabra a le
 
 ## Tesztek leírása
 
-A letöltött tesztek egyessével futtathatóak, például az alábbi módon:
+A letöltött tesztek egyesével futtathatóak, például az alábbi módon:
 ```
 $ python test_numpy.py
 ```
 
-* A `test_numpy.py` a Numpy könvyvtár számítási teljesítményét méri. Lefuttatás után kiírja hány másodpercig tartott a script lefuttatása. 
+* A `test_numpy.py` a Numpy könyvtár számítási teljesítményét méri. Lefuttatás után kiírja hány másodpercig tartott a script lefuttatása. 
 * A `test_mnist.py` a TensorFlow keretrendszert használja, egy classifier betanítását végzi. Megfigyelhető egy tanítási ciklus (epoch) hány másodpercig tart.
 * A `test_cifar10.py` Az előzőhöz hasonlóan TensorFlow keretrendszert használ, de itt a modell tanítása hosszabb ideig tart
 * A `test_dlib.py` A dlib és face_recognition könyvtárak teljesítményét nézi. 400 képen fut le az arckereső és embedding kinyerő algoritmus.
-* A `test_posenet_gpu.py` és `test_posenet_cpu.py` a testtartás elemző PoseNet Pytorch könyvtár furási idejét méri. A GPU verzió kihasználja a grafikus kártyát.
+* A `test_posenet_gpu.py` és `test_posenet_cpu.py` a testtartás elemző PoseNet Pytorch könyvtár futási idejét méri. A GPU verzió kihasználja a grafikus kártyát.
 
 # Teszt eredmények
 
@@ -110,9 +110,9 @@ A Numpy teszt csak a CPU teljesítményét méri matematikai műveleteken. Enné
 
 ![Numpy teszt eredmény](./images/figures/result_numpy.png)
 
-A TensorFlow kiadott egy Mac M1-es architektúrára optimalizált verziót ([link](https://github.com/apple/tensorflow_macos)). A keretrendszer kissé bonyolultan telepíthető Miniconda segítségével, de miután sikerült felrakni rendkívűl egyszerű a használata. Egy felmerülő problémám volt nálam, hogy jelenleg csak a TensorFlow 2.4-es verziója támogatott, tehát régi 1.x projektek visszamenőleg nincsenek támogatva.
+A TensorFlow kiadott egy Mac M1-es architektúrára optimalizált verziót ([link](https://github.com/apple/tensorflow_macos)). A keretrendszer kissé bonyolultan telepíthető Miniconda segítségével, de miután sikerült felrakni rendkívül egyszerű a használata. Egy felmerülő problémám volt nálam, hogy jelenleg csak a TensorFlow 2.4-es verziója támogatott, tehát régi 1.x projektek visszamenőleg nincsenek támogatva.
 
-Az MNIST adathalmazra egy teljesen kapcsolt neurális hálót , míg a CIFAR10 adathalmazra egy konvolúciós neurális hálót tanítunk. A futtatási eredmények az alábbi ábrán láthatóak.
+Az MNIST adathalmazra egy teljesen kapcsolt neurális hálót, míg a CIFAR10 adathalmazra egy konvolúciós neurális hálót tanítunk. A futtatási eredmények az alábbi ábrán láthatóak.
 
 ![TensorFlow teszt eredmény](./images/figures/tensorflow_nn.png)
 
@@ -131,4 +131,4 @@ A pózdetektálás teszt bemeneti képeken futtatja le a testtartás elemző mod
 
 # Összegzés
 
-Jelenleg viszonylag kevés az olyan machine learning könyvtár ami támogatná az új Apple Silicon M1 chipet. Legjobb eredményeket TensorFlow keretrendszer használatával érhetünk el. Idővel várhatóan javulni fog a helyzet, de jelenleg hatékonyabb NVIDIA GPU vagy Cloud computing szolgáltatás használata.
+Jelenleg viszonylag kevés az olyan machine learning könyvtár, ami támogatná az új Apple Silicon M1 chipet. Legjobb eredményeket TensorFlow keretrendszer használatával érhetünk el. Idővel várhatóan javulni fog a helyzet, de jelenleg hatékonyabb NVIDIA GPU vagy Cloud computing szolgáltatás használata.
